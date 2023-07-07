@@ -4,6 +4,7 @@ const packageInfo = require('../../package.json')
 const testMysqlConn = require('../db/mysql2')
 const { WorkModel } = require('../models/WorkModel')
 const { cacheGet, cacheSet } = require('../cache/index')
+const loginCheck = require('../middlewares/loginCheck')
 
 // router.get('/', async (ctx, next) => {
 //   await ctx.render('index', {
@@ -51,5 +52,10 @@ router.get('/api/db-check', async ctx => {
         },
     }
 })
+
+// router.get('/getUserInfo', loginCheck, async ctx => {
+//     // 经过了 loginCheck ，用户信息在 ctx.userInfo 中
+//     ctx.body = new SuccessRes(ctx.userInfo)
+// })
 
 module.exports = router
