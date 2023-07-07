@@ -43,7 +43,7 @@ router.get('/api/db-check', async ctx => {
     ctx.body = {
         errno: 0,
         data: {
-            name: 'biz water sever',
+            name: 'bi3 water sever',
             version: packageInfo.version,
             ENV,
             mysqlConn: mysqlRes.length > 0,
