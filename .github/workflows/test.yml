@@ -23,6 +23,28 @@ jobs:
             - uses: actions/checkout@v2
             - name: set ssh key # 临时设置 ssh key
               run: |
-                  npm i
-                  npm run lint
-                  npm run test
+                  mkdir -p ~/.ssh/
+                  echo "${{https://github.com/lxtiscool/water-server/settings/secrets.WATER_KEY}}" > ~/.ssh/id_rsa # secret 在这里配置 https://github.com/imooc-lego/biz-editor-server/settings/secrets
+                  chmod 600 ~/.ssh/id_rsa
+                  ssh-keyscan "10.18.40.121" >> ~/.ssh/known_hosts
+
+            - name: deploy # 部署
+              run: |
+                  ssh root@10.18.40.121 "
+                    # 【注意】用 work 账号登录，手动创建 /home/work/imooc-lego 目录
+                    # 然后 git clone https://username:password@github.com/imooc-lego/biz-editor-server.git -b dev （私有仓库，使用 github 用户名和密码）
+                    # 记得删除 origin ，否则会暴露 github 密码
+                    # https://github.com/lxtiscool/water-server.git
+
+                    cd /data/lxt/water-server;
+                    git remote add origin https://lxtiscool:${{secrets.WATER_PASSWORD}}@github.com/lxtiscool/water-server.git;
+                    git checkout dev;
+                    git pull origin dev; # 重新下载最新代码
+                    git remote remove origin; # 删除 origin ，否则会暴露 github 密码
+                    # 启动 docker
+                    docker-compose build water-server; # 和 docker-compose.yml service 名字一致
+                    docker-compose up -d;
+                  "
+            - name: delete ssh key # 删除 ssh key
+              run: rm -rf ~/.ssh/id_rsa
+
