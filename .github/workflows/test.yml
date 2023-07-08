@@ -27,5 +27,5 @@ jobs:
                   mkdir -p ~/.ssh/
                   echo "$WATER_KEY" | tr -d '\r' > ~/.ssh/id_rsa
                   chmod 600 ~/.ssh/id_rsa
-                  ssh-keyscan "10.18.40.121" >> ~/.ssh/known_hosts
+                  ssh-keyscan "182.92.168.192" >> ~/.ssh/known_hosts
          
