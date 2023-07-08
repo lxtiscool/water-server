@@ -24,6 +24,5 @@ jobs:
               env:
                 WATER_KEY: ${{ secrets.WATER_KEY }}
               run: |
-                  mkdir lxthome
-
+                  mkdir -p ~/.ssh/
          
