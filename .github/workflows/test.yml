@@ -18,7 +18,6 @@ on:
 jobs:
     test:
         runs-on: ubuntu-latest
-
         steps:
             - uses: actions/checkout@v2
             - name: set ssh key # 临时设置 ssh key
