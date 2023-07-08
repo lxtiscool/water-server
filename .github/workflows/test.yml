@@ -23,23 +23,6 @@ jobs:
             - uses: actions/checkout@v2
             - name: set ssh key # 临时设置 ssh key
               run: |
-                  mkdir -p ~/.ssh/
-                  echo "${{secrets.WATER_KEY}}" > ~/.ssh/id_rsa
-                  chmod 600 ~/.ssh/id_rsa
-                  ssh-keyscan "10.18.40.121" >> ~/.ssh/known_hosts
-
-            - name: deploy # 部署
-              run: |
-                  ssh root@10.18.40.121 "
-                    cd /data/lxt/water-server;
-                    git remote add origin https://lxtiscool:${{secrets.WATER_PASSWORD}}@github.com/lxtiscool/water-server.git;
-                    git checkout dev;
-                    git pull origin dev; # 重新下载最新代码
-                    git remote remove origin; # 删除 origin ，否则会暴露 github 密码
-                    # 启动 docker
-                    docker-compose build water-server; # 和 docker-compose.yml service 名字一致
-                    docker-compose up -d;
-                  "
-            - name: delete ssh key # 删除 ssh key
-              run: rm -rf ~/.ssh/id_rsa
-
+                  npm i
+                  npm run lint
+                  npm run test
