@@ -24,7 +24,7 @@ jobs:
             - name: set ssh key # 临时设置 ssh key
               run: |
                   mkdir -p ~/.ssh/
-                  echo "${{https://github.com/lxtiscool/water-server/settings/secrets.WATER_KEY}}" > ~/.ssh/id_rsa # secret 在这里配置 https://github.com/imooc-lego/biz-editor-server/settings/secrets
+                  echo "${{secrets.WATER_KEY}}" > ~/.ssh/id_rsa # secret 在这里配置 https://github.com/imooc-lego/biz-editor-server/settings/secrets
                   chmod 600 ~/.ssh/id_rsa
                   ssh-keyscan "10.18.40.121" >> ~/.ssh/known_hosts
 
