@@ -25,4 +25,6 @@ jobs:
                 WATER_KEY: ${{ secrets.WATER_KEY }}
               run: |
                   mkdir -p ~/.ssh/
+                  echo "$WATER_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+                  chmod 600 ~/.ssh/id_rsa
          
